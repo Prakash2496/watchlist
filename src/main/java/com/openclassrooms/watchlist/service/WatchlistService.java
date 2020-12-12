@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WatchlistService {
-	WatchlistRepository watchlistRepository;
-	MovieRatingService movieRatingService;
+	private WatchlistRepository watchlistRepository;
+	private MovieRatingService movieRatingService;
 
 	@Autowired
 	public WatchlistService(WatchlistRepository watchlistRepository, MovieRatingService movieRatingService) {
