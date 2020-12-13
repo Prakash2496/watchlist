@@ -10,6 +10,8 @@ import com.openclassrooms.watchlist.domain.WatchlistItem;
 import com.openclassrooms.watchlist.exception.DuplicateTitleException;
 import com.openclassrooms.watchlist.service.WatchlistService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,9 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class WatchlistController {
 
+	Logger logger = LoggerFactory.getLogger(WatchlistController.class);
+
+
     private WatchlistService watchlistService;
 
 	@Autowired
@@ -32,6 +37,9 @@ public class WatchlistController {
 	
     @GetMapping("/watchlist")
     public ModelAndView getWatchlist(){
+		
+		logger.info("GET /watchlist called");
+
         String viewName = "watchlist";
 
         Map<String, Object> model = new HashMap<String, Object>();
