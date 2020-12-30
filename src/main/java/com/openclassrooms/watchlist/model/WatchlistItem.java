@@ -1,4 +1,4 @@
-package com.openclassrooms.watchlist.domain;
+package com.openclassrooms.watchlist.model;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -8,10 +8,16 @@ import com.openclassrooms.watchlist.validation.GoodMovie;
 import com.openclassrooms.watchlist.validation.Priority;
 import com.openclassrooms.watchlist.validation.Rating;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 @GoodMovie
 @BadMovie
+@Document(collection = "watchlistItems")
 public class WatchlistItem {
-    private Integer id;
+
+	@Id
+    private String id;
 	
 	@NotEmpty( message="Please enter the title")
 	private String title;
@@ -33,18 +39,17 @@ public class WatchlistItem {
 
 	public WatchlistItem(String title, String rating, String priority, String comment) {
 		super();
-		this.id = index ++;
 		this.title = title;
 		this.rating = rating;
 		this.priority = priority;
 		this.comment = comment;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

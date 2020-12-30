@@ -3,7 +3,7 @@ package com.openclassrooms.watchlist.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.openclassrooms.watchlist.domain.WatchlistItem;
+import com.openclassrooms.watchlist.model.WatchlistItem;
 
 public class GoodMovieValidator implements ConstraintValidator<GoodMovie, WatchlistItem>{
 

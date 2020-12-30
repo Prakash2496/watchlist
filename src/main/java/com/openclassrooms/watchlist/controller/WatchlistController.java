@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.openclassrooms.watchlist.domain.WatchlistItem;
 import com.openclassrooms.watchlist.exception.DuplicateTitleException;
+import com.openclassrooms.watchlist.model.WatchlistItem;
 import com.openclassrooms.watchlist.service.WatchlistService;
 
 import org.slf4j.Logger;
@@ -26,14 +26,14 @@ public class WatchlistController {
 
 	Logger logger = LoggerFactory.getLogger(WatchlistController.class);
 
-
+	@Autowired
     private WatchlistService watchlistService;
 
-	@Autowired
-	public WatchlistController(WatchlistService watchlistService) {
-		super();
-		this.watchlistService = watchlistService;
-	}
+	// @Autowired
+	// public WatchlistController(WatchlistService watchlistService) {
+	// 	super();
+	// 	this.watchlistService = watchlistService;
+	// }
 	
     @GetMapping("/watchlist")
     public ModelAndView getWatchlist(){
@@ -52,11 +52,16 @@ public class WatchlistController {
     }
 
     @GetMapping("/watchlistItemForm")
-	public ModelAndView showWatchlistItemForm(@RequestParam(required=false) Integer id) {
+	public ModelAndView showWatchlistItemForm(@RequestParam(required=false) String id) {
 		
 		String viewName = "watchlistItemForm";
 		
 		Map<String,Object> model = new HashMap<String,Object>();
+
+		if(id == null){
+			model.put("watchlistItem", new WatchlistItem());
+			return new ModelAndView(viewName,model); 
+		}
 		
 		Optional<WatchlistItem> watchlistItem = watchlistService.findWatchlistItemById(id);
 		if (watchlistItem.isEmpty()) {
