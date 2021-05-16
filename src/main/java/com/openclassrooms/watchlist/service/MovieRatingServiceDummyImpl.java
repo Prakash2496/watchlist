@@ -1,10 +1,10 @@
 package com.openclassrooms.watchlist.service;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-@ConditionalOnProperty(name = "app.environment", havingValue = "dev")
-@Service
+@Profile({"dev"})
+@Service("omdbService")
 public class MovieRatingServiceDummyImpl implements MovieRatingService{
     String apiUrl = "http://www.omdbapi.com/?i=tt3896198&apikey=3337d9b7&t=";
     

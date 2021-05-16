@@ -12,34 +12,10 @@
 
 <body>
 	<div class="container">
-  		<nav class = "navbar navbar-expand-sm navbar-dark bg-secondary">
-            <a class = "navbar-brand" href = "homepage-static.html">Watchlist App</a>
-            <button class = "navbar-toggler" type = "button" data-toggle = "collapse" 
-               data-target = "#navbarSupportedContent" 
-               aria-controls = "navbarSupportedContent" aria-expanded = "false" 
-               aria-label = "Toggle navigation">
-               
-               <span class = "navbar-toggler-icon"></span>
-            </button>
-            
-            <div class = "collapse navbar-collapse" id = "navbarSupportedContent">
-               <ul class = "navbar-nav mr-auto">
-                  <li class = "nav-item">
-                     <a class = "nav-link active" href = "/">Home</a>
-                  </li>
-                  <li class = "nav-item">
-                     <a class = "nav-link" href = "/watchlist">Watchlist</a> 
-                  </li>
-                  <li class = "nav-item ">
-                     <a class = "nav-link" href = "/watchlistItemForm">Submit an item</a>
-                  </li>
-               </ul>
-               
-            </div>
-      	</nav> 
-      	<br>
-      	
-      	<hr>
+      <nav th:replace="fragments/menu :: menu"></nav>
+      <br>
+      
+      <hr>
 <div class="d-flex justify-content-center align-items-center" id="main">
     <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">Oops!</h1>
     <div class="inline-block align-middle">
