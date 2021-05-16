@@ -1,6 +1,7 @@
 package com.openclassrooms.watchlist.actuator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import com.openclassrooms.watchlist.service.MovieRatingService;
 public class HealthCheck implements HealthIndicator {
 
 	@Autowired
+	@Qualifier("omdbService")
 	MovieRatingService movieRatingService;
 	
 	@Override

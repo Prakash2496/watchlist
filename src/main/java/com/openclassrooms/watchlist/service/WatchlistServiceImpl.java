@@ -8,6 +8,7 @@ import com.openclassrooms.watchlist.model.WatchlistItem;
 import com.openclassrooms.watchlist.repository.WatchlistRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class WatchlistServiceImpl implements WatchlistService{
 	private WatchlistRepository watchlistRepository;
 
 	@Autowired
+	@Qualifier("omdbService")
 	private MovieRatingService movieRatingService;
 
 	@Autowired
@@ -36,7 +38,7 @@ public class WatchlistServiceImpl implements WatchlistService{
 		    
 			String rating = movieRatingService.getMovieRating(watchlistItem.getTitle()); 
 			
-			if (!rating.isEmpty()) {
+			if (!rating.isEmpty() && !rating.equals("N/A")) {
 				watchlistItem.setRating(rating);
 			}
 		}
