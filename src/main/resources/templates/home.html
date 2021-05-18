@@ -1,4 +1,5 @@
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- Meta tags -->
 <meta charset="utf-8">
@@ -15,11 +16,11 @@
       <nav th:replace="fragments/menu :: menu"></nav>
 		<h2  class = "mt-4">Welcome to the Watchlist application!</h2> <br>
 		<h5 >Made for movie lovers who have a hard time choosing their next movie to watch.</h5> 	
-		<span th:if="!${#authorization.expression('isAuthenticated()')}">
+		<span sec:authorize="isAnonymous()">
 			Please Log in to add reviews or to view reviews from other users.
 		</span>
 
-		<span th:if="${#authorization.expression('isAuthenticated()')}">
+		<span sec:authorize="isAuthenticated()">
 			Click on watchlist to views reviews!!
 		</span>
 

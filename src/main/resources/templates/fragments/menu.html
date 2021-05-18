@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org"> 
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head></head>
 
@@ -14,24 +15,27 @@
 		</button>
 		
 		<div class = "collapse navbar-collapse" id = "navbarSupportedContent">
-			<ul class = "navbar-nav mr-auto">
-				<li th:classappend="${#request.requestURI == '/' ? 'nav-item active':'nav-item'}" th:if="${#authorization.expression('isAuthenticated()')}">
+			<ul class = "navbar-nav mr-auto" sec:authorize="isAuthenticated()">
+				<li th:classappend="${#request.requestURI == '/' ? 'nav-item active':'nav-item'}">
 					<a class = "nav-link" href = "/">Dashboard</a>
 				</li>
-				<li th:classappend="${#request.requestURI == '/watchlist' ? 'nav-item active':'nav-item'}" th:if="${#authorization.expression('isAuthenticated()')}">
+				<li th:classappend="${#request.requestURI == '/watchlist' ? 'nav-item active':'nav-item'}" >
 					<a class = "nav-link" href = "/watchlist">Watchlist</a>
 				</li>
-				<li th:classappend="${#request.requestURI == '/watchlistItemForm' ? 'nav-item active':'nav-item'}" th:if="${#authorization.expression('isAuthenticated()')}">
+				<li th:classappend="${#request.requestURI == '/watchlistItemForm' ? 'nav-item active':'nav-item'}" >
 					<a class = "nav-link" href = "/watchlistItemForm">Submit an item :D</a>
 				</li>
 			</ul>
+			
+			<ul class = "navbar-nav mr-auto" sec:authorize="isAnonymous()">
+			</ul>
 
-			<form method="post" th:action="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}" class="navbar-form navbar-right">
+			<form method="post" th:action="@{/logout}" sec:authorize="isAuthenticated()" >
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <button id="logout-button" type="submit" class="btn btn-danger">Logout</button>
             </form>
 
-            <form method="get" th:action="@{/oauth2/authorization/okta}" th:unless="${#authorization.expression('isAuthenticated()')}">
+            <form method="get" th:action="@{/oauth2/authorization/okta}" sec:authorize="isAnonymous()">
                 <button id="login-button" class="btn btn-success" type="submit">Login</button>
             </form>
 			
