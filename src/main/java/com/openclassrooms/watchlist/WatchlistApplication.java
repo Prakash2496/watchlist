@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class WatchlistApplication {
 
-	@Bean
-	public HttpTraceRepository htttpTraceRepository() {
-		return new InMemoryHttpTraceRepository();
-	}
+//	@Bean
+//	public HttpTraceRepository htttpTraceRepository() {
+//		return new InMemoryHttpTraceRepository();
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(WatchlistApplication.class, args);
