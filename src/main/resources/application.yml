@@ -1,0 +1,47 @@
+#Tue May 11 21:57:42 MUT 2021
+spring:
+    profiles:
+        active: prod
+    thymeleaf:
+        cache: false
+    data:    
+        mongodb:
+            uri: mongodb+srv://prakash:8PuH6xztJODOu7Pk@spring-boot.meibq.mongodb.net/watchlist?retryWrites=true&w=majority
+
+    security:
+        oauth2:
+            client:
+                registration:
+                    okta:
+                        client-id: 0oaq15nu4ME1PV9P95d6
+                        client-secret: h7WXAIVywfXAI-qV15P6U5tHvRH58x3wt_HpXgQc
+                        redirect-uri: http://localhost:8080/login/oauth2/code/okta
+                        scope: openid
+                provider:
+                    okta:
+                        issuer-uri: https://dev-1397934.okta.com/oauth2/default
+    
+logging:
+    file:
+        name: watchlist-app.log
+info:
+    app:
+        name: Watchlist
+        description: A must have for any movie freak\!
+        version: 1.0.0
+
+
+    
+# okta.oauth2.issuer=https://dev-1397934.okta.com/oauth2/default
+# okta.oauth2.client-id=0oaq15nu4ME1PV9P95d6
+# okta.oauth2.client-secret=h7WXAIVywfXAI-qV15P6U5tHvRH58x3wt_HpXgQc
+# okta.oauth2.postLogoutRedirectUri=http://localhost:8080/
+# okta.oauth2.redirect-uri=/login/oauth2/code/okta
+management:
+    endpoints:
+        web:
+            exposure:
+                include: info,health,beans,env,metrics,httptrace,release-notes
+
+    
+
