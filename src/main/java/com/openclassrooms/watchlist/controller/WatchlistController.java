@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -48,15 +47,15 @@ public class WatchlistController {
         Map<String, Object> model = new HashMap<String, Object>();
         
         
-        model.put("watchlistItems", watchlistService.getWatchlistItems());
-        model.put("numberOfMovies", watchlistService.getWatchlistItems().size());
+        model.put("watchlistItems", watchlistService.getWatchlistItems(user.getName()));
+        model.put("numberOfMovies", watchlistService.getWatchlistItemsSize(user.getName()));
 		model.put("user", user.getName());
 
         return new ModelAndView(viewName, model);
     }
 
     @GetMapping("/watchlistItemForm")
-	public ModelAndView showWatchlistItemForm(@RequestParam(required=false) String id) {
+	public ModelAndView showWatchlistItemForm(@AuthenticationPrincipal OAuth2User user, @RequestParam(required=false) String id) {
 		
 		String viewName = "watchlistItemForm";
 		
@@ -67,7 +66,7 @@ public class WatchlistController {
 			return new ModelAndView(viewName,model); 
 		}
 		
-		Optional<WatchlistItem> watchlistItem = watchlistService.findWatchlistItemById(id);
+		Optional<WatchlistItem> watchlistItem = watchlistService.findWatchlistItemByIdAndUserId(id, user.getName());
 		if (watchlistItem.isEmpty()) {
 			model.put("watchlistItem", new WatchlistItem());
 		} else {
@@ -78,14 +77,14 @@ public class WatchlistController {
     }
     
     @PostMapping("/watchlistItemForm")
-	public ModelAndView submitWatchlistItemForm(@Valid WatchlistItem watchlistItem, BindingResult bindingResult){
+	public ModelAndView submitWatchlistItemForm(@AuthenticationPrincipal OAuth2User user, @Valid WatchlistItem watchlistItem, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()) {
 			return new ModelAndView("watchlistItemForm");
 		}
 		
 		try {
-			watchlistService.addOrUpdateWatchlistItem(watchlistItem);
+			watchlistService.addOrUpdateWatchlistItem(watchlistItem, user.getName());
 		} catch (DuplicateTitleException e) {
 			bindingResult.rejectValue("title", "", "This title already exists on your watchlist");
 			return new ModelAndView("watchlistItemForm");

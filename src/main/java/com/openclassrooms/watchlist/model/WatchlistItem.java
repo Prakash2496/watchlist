@@ -1,5 +1,7 @@
 package com.openclassrooms.watchlist.model;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -17,32 +19,41 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class WatchlistItem {
 
 	@Id
-    private String id;
-	
-	@NotEmpty( message="Please enter the title")
+	private String id;
+
+	@NotEmpty(message = "Please enter the title")
 	private String title;
-	
+
 	@Rating
-	private String rating; 
-	
+	private String rating;
+
 	@Priority
 	private String priority;
-	
+
 	@Size(max = 50, message = "Comment should be maximum 50 characters")
 	private String comment;
-	
+
+	private Date dateCreated;
+	private Date lastEditDate;
+
+	private String userId;
+
 	public static int index = 0;
-	
+
 	public WatchlistItem() {
 		// this.id = index ++;
 	}
 
-	public WatchlistItem(String title, String rating, String priority, String comment) {
-		super();
+	public WatchlistItem(@NotEmpty(message = "Please enter the title") String title, String rating, String priority,
+			@Size(max = 50, message = "Comment should be maximum 50 characters") String comment, Date dateCreated,
+			Date lastEditDate, String userId) {
 		this.title = title;
 		this.rating = rating;
 		this.priority = priority;
 		this.comment = comment;
+		this.dateCreated = dateCreated;
+		this.lastEditDate = lastEditDate;
+		this.userId = userId;
 	}
 
 	public String getId() {
@@ -84,4 +95,29 @@ public class WatchlistItem {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getLastEditDate() {
+		return lastEditDate;
+	}
+
+	public void setLastEditDate(Date lastEditDate) {
+		this.lastEditDate = lastEditDate;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 }
