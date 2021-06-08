@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.openclassrooms.watchlist.model.WatchlistItem;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,6 +18,9 @@ public interface WatchlistRepository extends MongoRepository<WatchlistItem, Stri
     Optional<WatchlistItem> findByTitleAndUserId(String title, String userId);
     List<WatchlistItem> findByUserId(String userId);
     Optional<WatchlistItem> findByIdAndUserId(String id, String userId);
+
+    @Query("{ 'userId' : { $exists: false } }")
+    List<WatchlistItem> findAdminWatchlist();
     // private List<WatchlistItem> watchlistItems = new ArrayList<WatchlistItem>();
     // private static int index = 1;
 

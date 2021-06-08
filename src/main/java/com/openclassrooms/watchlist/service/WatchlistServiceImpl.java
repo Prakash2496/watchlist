@@ -47,6 +47,20 @@ public class WatchlistServiceImpl implements WatchlistService{
     }
 
 	@Override
+	public List<WatchlistItem> getWatchlistItems() {
+		List<WatchlistItem> watchlistItems = watchlistRepository.findAdminWatchlist();
+		for (WatchlistItem watchlistItem : watchlistItems) {
+		    
+			String rating = movieRatingService.getMovieRating(watchlistItem.getTitle()); 
+			
+			if (!rating.isEmpty() && !rating.equals("N/A")) {
+				watchlistItem.setRating(rating);
+			}
+		}
+		return watchlistItems;
+	}
+
+	@Override
     public int getWatchlistItemsSize(String userId) {
         return watchlistRepository.findByUserId(userId).size();
     }

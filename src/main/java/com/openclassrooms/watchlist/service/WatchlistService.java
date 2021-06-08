@@ -8,6 +8,7 @@ import com.openclassrooms.watchlist.model.WatchlistItem;
 
 public interface WatchlistService {
     public List<WatchlistItem> getWatchlistItems(String userId);
+    public List<WatchlistItem> getWatchlistItems();
     public int getWatchlistItemsSize(String userId);
     public Optional<WatchlistItem> findWatchlistItemByIdAndUserId(String id, String userId);
     public void addOrUpdateWatchlistItem(WatchlistItem watchlistItem, String userId) throws DuplicateTitleException;

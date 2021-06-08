@@ -7,12 +7,10 @@ import com.openclassrooms.watchlist.service.WatchlistService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -29,6 +27,8 @@ public class AuthController {
         String viewName = "home";
 
         Map<String, Object> model = new HashMap<String, Object>();
+
+        model.put("watchlistItems", watchlistService.getWatchlistItems());
 
         ModelAndView modelAndView = new ModelAndView(viewName, model);
 
