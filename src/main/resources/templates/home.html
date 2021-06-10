@@ -21,8 +21,41 @@
 		</span>
 
 		<span sec:authorize="isAuthenticated()">
-			Click on watchlist to views reviews!!
+			Click on <a href="http://localhost:8080/watchlist">watchlist</a> to views your reviews!!
+			
+			<h3>Latest Movies</h3>
+
+			<table class="table">
+				<thead class = "thead-light">
+					<tr>
+						<th class="text-left">Title</th>
+						<th class="text-left">Rating</th>
+						<th class="text-left">Priority</th>
+						<th class="text-left">Comment</th>
+						<th class="text-left"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="watchlistItem : ${watchlistItems}">
+						<td th:text="${watchlistItem.title}">Avatar</td>
+						<td th:text="${watchlistItem.rating}">7.8</td>
+						<td th:text="${watchlistItem.priority}">LOW</td>
+						<td th:text="${watchlistItem.comment}">Peter recommended</td>
+						<td>
+							<!-- <a href="#" class="btn btn-success" role="button" th:href="@{/watchlistItemForm(id=${watchlistItem.id})}">Review</a> -->
+							<a href="#" class="btn btn-success" role="button" th:href="@{/#}">Review</a>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr/>
+			<div >
+				<div> Something Else </div>	 
+			</div>
 		</span>
+
+
 
 	</div>
 
